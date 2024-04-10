@@ -38,16 +38,20 @@ const PasswordRecovery = () => {
     const [user, setUser] = useState<UserModel>()
 
     useEffect(() => {
-        // @ts-ignore
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha_container",
-            {
-                'size': 'normal',
-                'callback': (response: any) => {
-                },
-                'expired-callback': () => {
+        if (typeof window !== undefined) {
+            // @ts-ignore
+           window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha_container",
+                {
+                    'size': 'normal',
+                    'callback': (response: any) => {
+                    },
+                    'expired-callback': () => {
 
-                }
-            })
+                    }
+                })
+        }
+
+
     }, [auth]);
 
 
@@ -69,8 +73,13 @@ const PasswordRecovery = () => {
                 try {
                      const formattedPhoneNumber = `+${number.replace(/\D/g, '')}`;
                      console.log(formattedPhoneNumber);
-                     // @ts-ignore
-                     const confirmation = await signInWithPhoneNumber(auth, formattedPhoneNumber, window.recaptchaVerifier);
+                     let confirmation: any;
+                    if (typeof window !== undefined) {
+                         // @ts-ignore
+                        confirmation = await signInWithPhoneNumber(auth, formattedPhoneNumber, window.recaptchaVerifier);
+
+                    }
+                        // @ts-ignore
                      setConfirmationResult(confirmation);
                      setOtpSent(true);
                      toast({
