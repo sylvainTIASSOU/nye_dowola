@@ -66,6 +66,10 @@
   }
 }
 
+.catHover:hover  {
+  @apply transition delay-150 duration-300 ease-in-out scale-105  cursor-pointer
+}
+
 @layer base {
   * {
     @apply border-border;

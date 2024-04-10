@@ -1,14 +1,131 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
+// POSTGRES_URL
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DB_NYEDOWOLA")
+}
+
+// TODO rating
+model User {
+  id          Int           @id @default(autoincrement())
+  lastName    String
+  firstName   String
+  email       String
+  passwords   String
+  role        Role
+  phone       Int           @unique
+  address     String
+  imageUrl    String?
+  isVisible   Boolean?
+  isActive    Boolean?
+  createAt    DateTime      @default(now())
+  updateAt    DateTime      @updatedAt
+  provider    Provider[]
+  payment     Payment[]
+  ratting     Ratting[]
+  appointment Appointment[]
+}
+
+model Service {
+  id          Int        @id @default(autoincrement())
+  serviceName String
+  description String
+  imageUrl    String[]
+  category    Category   @relation(fields: [categoryId], references: [id])
+  isVisible   Boolean?
+  isActive    Boolean?
+  createAt    DateTime   @default(now())
+  updateAt    DateTime   @updatedAt
+  categoryId  Int
+  provider    Provider[]
+}
+
+model Category {
+  id           Int       @id @default(autoincrement())
+  categoryName String
+  imageUrl     String
+  isVisible    Boolean?
+  isActive     Boolean?
+  createAt     DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
+  Service      Service[]
+}
+
+model Provider {
+  id                Int           @id @default(autoincrement())
+  availability      String
+  estimatedDuration Int
+  tarif             Float
+  user              User          @relation(fields: [userId], references: [id])
+  service           Service       @relation(fields: [serviceId], references: [id])
+  isVisible         Boolean?
+  isActive          Boolean?
+  createAt          DateTime      @default(now())
+  updateAt          DateTime      @updatedAt
+  userId            Int
+  serviceId         Int
+  appointment       Appointment[]
+}
+
+model Payment {
+  id            Int           @id @default(autoincrement())
+  amount        Float
+  paymentDate   String
+  customer      User          @relation(fields: [customerId], references: [id])
+  appointment   Appointment   @relation(fields: [appId], references: [id])
+  paymentStatus PaymentStatus
+  createAt      DateTime      @default(now())
+  updateAt      DateTime      @updatedAt
+  customerId    Int
+  appId         Int
+}
+
+model Appointment {
+  id                Int               @id @default(autoincrement())
+  appointmentDate   String
+  appointmentHours  String
+  address           String
+  appointmentStatus AppointmentStatus
+  provider          Provider          @relation(fields: [providerId], references: [id])
+  user              User              @relation(fields: [userId], references: [id])
+  createAt          DateTime          @default(now())
+  updateAt          DateTime          @updatedAt
+  providerId        Int
+  userId            Int
+  payment           Payment[]
+  ratting           Ratting[]
+}
+
+model Ratting {
+  id          Int         @id @default(autoincrement())
+  comment     String
+  note        Int
+  user        User        @relation(fields: [userId], references: [id])
+  appointment Appointment @relation(fields: [appId], references: [id])
+  isVisible   Boolean?
+  isActive    Boolean?
+  createAt    DateTime    @default(now())
+  updateAt    DateTime    @updatedAt
+  userId      Int
+  appId       Int
+}
+
+enum PaymentStatus {
+  payer
+  enAttente
+}
+
+enum AppointmentStatus {
+  planifier
+  enCours
+  termine
+}
+
+enum Role {
+  customer
+  admin
+  provider
 }

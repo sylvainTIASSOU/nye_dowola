@@ -19,6 +19,8 @@ const config = {
     },
     extend: {
       colors: {
+        primaryColor: "#2196F3",
+        secondaryColor: "#FF9800",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
