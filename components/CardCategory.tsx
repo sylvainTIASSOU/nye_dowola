@@ -44,7 +44,7 @@ const CardCategory = ({cat,
                                 route.push(`/services/${items.id}`)
                             }}
                             key={index}
-                            className={" catHover h-[150px] w-[150px] rounded-[15px] bg-purple-100 flex flex-col items-center justify-center space-y-3 "}>
+                            className={" catHover h-[150px] w-[150px] rounded-[15px] bg-teal-100 flex flex-col items-center justify-center space-y-3 "}>
                             <Image src={items.imageUrl}
                                    alt={"cat"}
                                    priority={true}

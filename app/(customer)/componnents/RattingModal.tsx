@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import {RattingModel} from "@/models/RattingModel";
 import {Api} from "@/app/api/Api";
 import {useToast} from "@/components/ui/use-toast";
+import {MessageCircleHeart} from "lucide-react";
 
 interface RattingInter {
     userId: number;
@@ -56,7 +57,7 @@ const RattingModal = (
             <Button size={"sm"} variant={"outline"}
                     className={"ml-3 text-white bg-secondaryColor"}
                     onClick={showModal}>
-                Donnez votre avis.
+                <MessageCircleHeart />
             </Button>
             <Modal title="Commentaire sur le service fournni" open={isModalOpen} onCancel={handleCancel}>
                 <form onSubmit={formik.handleSubmit} className={"flex flex-col space-y-5"}>

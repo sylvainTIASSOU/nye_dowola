@@ -297,7 +297,7 @@ const Profil = () => {
                                         />
 
                                         <div className={"flex flex-col space-y-2"}>
-                                            <h1 className={"font-bold text-xl"}>{items.serviceName}</h1>
+                                            <h1 className={"font-bold text-[15px] md:text-xl"}>{items.serviceName}</h1>
                                             <div className={"flex space-x-2"}>
                                                 <User className={"text-purple-600 "}/>
                                                 <h1 className={"text-purple-600 font-bold "}> {items.providerName}</h1>
@@ -311,7 +311,7 @@ const Profil = () => {
                                             <div className={"flex space-x-2"}>
                                                 <CalendarRange className={"text-purple-600 "}/>
                                                 <h1 className={"text-gray-600 "}>Date: <span
-                                                    className={"font-bold text-black dark:text-white"}>{items.date}</span>
+                                                    className={"font-bold text-black text-[13px] dark:text-white"}>{items.date}</span>
                                                 </h1>
                                             </div>
 

@@ -50,7 +50,7 @@ export default function About() {
                         <Image src={"/illustration/3d-casual-life-young-man-with-floor-cleaning.png"}
                                alt={""}
                                width={400}
-                               height={400}
+                               height={250}
                                className={"bg-cover bg-center"}/>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ export default function About() {
                         <Image src={"/illustration/3d-casual-life-young-householder-putting-on-gloves.png"}
                                alt={""}
                                width={400}
-                               height={400}
+                               height={250}
                                className={"bg-cover bg-center"}/>
                     </div>
 
@@ -239,14 +239,16 @@ export default function About() {
                     </div>
                 </div>
             </section>
-
-            <section>
-                <h1 className={"text-[30px] font-bold "}>Témoignages de clients </h1>
-
+            <section
+                className={"bg-teal-400 mt-10 mb-10 w-full relative rounded-sm  bg-no-repeat  object-cover bg-cover bg-center py-20 px-3"}>
+                <h1 className={"text-[30px] text-white font-bold"}>
+                    Témoignages des clients
+                </h1>
                 <div className={"mt-5 self-center"}>
                     <CommentCarousel/>
                 </div>
             </section>
+
         </main>
     );
 }

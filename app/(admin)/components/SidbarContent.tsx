@@ -2,15 +2,55 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {LayoutGrid, ServerCog} from "lucide-react";
+import {Gauge, LayoutDashboard, LayoutGrid, MessageCircleHeart, ServerCog, User, UserCog, Settings} from "lucide-react";
 import {useEffect, useState} from "react";
+import {usePathname} from "next/navigation";
 
+const Links = [
+    {
+        link: "/admin",
+        icon: <LayoutDashboard/>,
+        label: "Dashboard",
+    },
+    {
+        link: "/admin/resevations",
+        icon: <Gauge/>,
+        label: "Reservations",
+    },
+    {
+        link: "/admin/customer",
+        icon: <User/>,
+        label: "Clients",
+    },
+    {
+        link: "/admin/prestataire",
+        icon: <UserCog/>,
+        label: "Prestataires",
+    },
+    {
+        link: "/admin/categories",
+        icon: <LayoutGrid/>,
+        label: "Catégories",
+    },
+    {
+        link: "/admin/services",
+        icon: <ServerCog/>,
+        label: "Services",
+    },
+    {
+        link: "/admin/commentes",
+        icon: <MessageCircleHeart/>,
+        label: "Commentaires",
+    },
+    {
+        link: "/admin/settings",
+        icon: <Settings/>,
+        label: "Parametre",
+    },
+]
 export default function SidbarContent() {
-    const [currentRoute, setCurrentRoute] = useState("");
+    const currentRoute = usePathname();
 
-    useEffect(() => {
-        setCurrentRoute(window.location.pathname)
-    }, []);
 
     return(
         <div className={"flex flex-col h-screen space-y-5 items-center w-full"}>
@@ -24,20 +64,22 @@ export default function SidbarContent() {
                    className={" flex bg-cover bg-center bg-content"}
             />
 
-            <div className={"w-auto mt-10 flex flex-col space-y-3 items-start "}>
-                <Link href={"/admin/categories"}
-                      className={currentRoute == "/admin/categories" ? "text-primaryColor font-bold flex space-x-3" : "text-[18px] flex space-x-3 font-light hover:font-bold hover:text-secondaryColor "}
-                >
-                    <LayoutGrid/>
-                    <h1> Catégories</h1>
-                </Link>
+            <div className={"w-auto mt-10 flex flex-col space-y-5 items-start "}>
+                {
+                    Links.map((items, index) => {
+                        return(
+                            <Link key={index} href={items.link}
+                                  className={currentRoute == items.link ? "text-primaryColor font-bold flex space-x-3" : "text-[18px] flex space-x-3 font-light hover:font-bold hover:text-secondaryColor "}
+                            >
+                                {items.icon}
+                                <h1> {items.label}</h1>
+                            </Link>
+                        )
+                    })
+                }
 
-                <Link href={"/admin/services"}
-                      className={currentRoute == "/admin/services" ? "text-primaryColor font-bold flex space-x-3" : "text-[18px] flex space-x-3 font-light hover:font-bold hover:text-secondaryColor "}
-                >
-                    <ServerCog/>
-                    <h1> Services</h1>
-                </Link>
+
+
             </div>
         </div>
     )

@@ -16,7 +16,6 @@ import { RecaptchaVerifier } from "firebase/auth";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import {UserModel} from "@/models/UserModel";
-import {router} from "next/client";
 
 
 const PasswordRecovery = () => {
@@ -34,23 +33,27 @@ const PasswordRecovery = () => {
     const [passLoading, setPassLoading] = useState(false);
     const { toast } = useToast();
     const auth = getAuth(app);
+    const router = useRouter();
 
     const [user, setUser] = useState<UserModel>()
 
     useEffect(() => {
-        if (typeof window !== undefined) {
-            // @ts-ignore
-           window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha_container",
-                {
-                    'size': 'normal',
-                    'callback': (response: any) => {
-                    },
-                    'expired-callback': () => {
+        /*const initializeRecaptchaVerifier = async () => {
+            if (typeof window !== undefined) {
+                // @ts-ignore
+                window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha_container",
+                    {
+                        'size': 'normal',
+                        'callback': (response: any) => {
+                        },
+                        'expired-callback': () => {
 
-                    }
-                })
+                        }
+                    })
+            }
         }
 
+        initializeRecaptchaVerifier();*/
 
     }, [auth]);
 
@@ -72,13 +75,11 @@ const PasswordRecovery = () => {
                  setUser(resp.user);
                 try {
                      const formattedPhoneNumber = `+${number.replace(/\D/g, '')}`;
-                     console.log(formattedPhoneNumber);
-                     let confirmation: any;
-                    if (typeof window !== undefined) {
+                   //  console.log(formattedPhoneNumber);
                          // @ts-ignore
-                        confirmation = await signInWithPhoneNumber(auth, formattedPhoneNumber, window.recaptchaVerifier);
+                       const confirmation = await signInWithPhoneNumber(auth, formattedPhoneNumber);
 
-                    }
+
                         // @ts-ignore
                      setConfirmationResult(confirmation);
                      setOtpSent(true);

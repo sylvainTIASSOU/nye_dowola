@@ -6,11 +6,12 @@ import {Api} from "@/app/api/Api";
 import {ServiceModel} from "@/models/ServiceModel";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import {ProviderModel} from "@/models/ProviderModel";
 import {useToast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
+import {activateProcess} from "@/redux/features/process-slice";
 
 const filterOption = (input: string, option?: { label: string; value: string }) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
@@ -20,6 +21,8 @@ export default function Setting() {
     const uid = useSelector((state: RootState) => state.authReducer.value.uid);
     const { toast } = useToast();
     const route = useRouter();
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         Api.read("/api/service").then((serv: any[]) => {
@@ -51,13 +54,15 @@ export default function Setting() {
 
         onSubmit: async (values) => {
             setIsLoading(true)
-            const providerModel = new ProviderModel(values.availability, Number(values.estimatedDuration), Number(values.tarif), Number(uid), Number(values.serviceId), true, true);
+            const providerModel = new ProviderModel(values.availability, Number(values.estimatedDuration), Number(values.tarif), Number(uid), Number(values.serviceId), false, true);
             const resp = await Api.create("/api/provider", providerModel);
+
             if (resp.ok) {
                 toast({
                     title: "Informations Enrégistrer avec succès."
                 });
-                route.push('/provider')
+                dispatch(activateProcess(true));
+                route.push('/provider/profil')
             }
             else {
                 toast({
@@ -70,8 +75,9 @@ export default function Setting() {
         }
     })
     return (
-        <div>
-            <form onSubmit={formik.handleSubmit} className={"flex flex-col space-y-5"}>
+        <div className={"w-full h-screen flex items-center justify-center"}>
+            <form onSubmit={formik.handleSubmit} className={" md:w-[600px] flex flex-col space-y-5"}>
+                <h1 className={"font-bold text-[30px]"}>Complecter votre profil</h1>
                 <h1 className={"text-center"}>Les champs précédés de * son obligatoire</h1>
                 <div className={"flex flex-col "}>
                     <label className={formik.touched.availability && formik.errors.availability ? "text-red-600" : ""}>
@@ -136,8 +142,8 @@ export default function Setting() {
                     />
                 </div>
 
-                <Button htmlType={"submit"} size={"large"} loading={isLoading} className={"bg-primaryColor"}>
-                    Enregister
+                <Button htmlType={"submit"} size={"large"} loading={isLoading} className={"bg-primaryColor w-[150px] self-end"}>
+                    Continuer
                 </Button>
             </form>
         </div>

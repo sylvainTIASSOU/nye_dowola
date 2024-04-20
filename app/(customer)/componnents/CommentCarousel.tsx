@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { EffectCoverflow, Pagination , Autoplay} from 'swiper/modules';
-import {User} from "lucide-react";
+import {Quote, User} from "lucide-react";
 import {Api} from "@/app/api/Api";
 import {Skeleton} from "@/components/ui/skeleton";
 import Image from "next/image";
@@ -76,18 +76,20 @@ export default function CommentCarousel() {
                                                 className={" flex items-center justify-center"}>
                                 <div className={"flex space-x-5 md:w-[400px]"}>
                                     <div
-                                        className={"flex items-center justify-center w-[40px] h-[40px] rounded-full border"}>
+                                        className={"flex items-center text-white justify-center w-[40px] h-[40px] rounded-full border"}>
                                         <User/>
                                     </div>
 
-                                    <h1 className={"text-[20px] font-bold"}>{items.user.firstName} {items.user.lastName} </h1>
+                                    <h1 className={"text-[20px] text-white font-bold"}>{items.user.firstName} {items.user.lastName} </h1>
                                 </div>
                                 <div
-                                    className={"p-3 md:w-[500px] flex items-center justify-center  h-[200px] rounded-[50px] border "}>
-
-                                    <h1 className={""}>
+                                    className={"p-3 md:w-[500px] flex flex-col space-y-3 items-center justify-center  h-[200px] rounded-[50px] border border-3 border-white "}>
+                                    <Quote className={"flex self-start text-white"}/>
+                                    <div className={"text-white"}>
                                         {items.comment}
-                                    </h1>
+                                    </div>
+                                    <Quote className={"flex self-end text-white"}/>
+
                                 </div>
                             </SwiperSlide>
                         }

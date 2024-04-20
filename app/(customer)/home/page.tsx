@@ -214,8 +214,8 @@ export default function Home() {
 
             </section>
 
-            <section className={"mt-10 mb-10 w-full relative  bg-no-repeat  object-cover bg-cover bg-center py-10 px-3"}>
-                <h1 className={"text-[30px] font-bold"}>
+            <section className={"bg-teal-400 mt-10 mb-10 w-full relative rounded-sm  bg-no-repeat  object-cover bg-cover bg-center py-20 px-3"}>
+                <h1 className={"text-[30px] text-white font-bold"}>
                     Ce que les Clients disent
                 </h1>
                 <div className={"mt-5 self-center"}>

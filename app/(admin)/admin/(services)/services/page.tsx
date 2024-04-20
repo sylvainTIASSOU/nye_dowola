@@ -55,7 +55,6 @@ const Services = () => {
         return data.map((arts) => (
             <TableRow key={arts.id}>
                 <TableCell>{arts.serviceName}</TableCell>
-                <TableCell>{arts.description}</TableCell>
                 <TableCell>{arts.categoryId}</TableCell>
 
                 {/*actions*/}
@@ -135,7 +134,6 @@ const Services = () => {
                 <TableHeader>
                     <TableRow>
                         <TableHead>Nom du Service</TableHead>
-                        <TableHead className="w-[100px]">Description</TableHead>
                         <TableHead>Id du categorie</TableHead>
 
                         <TableHead className="">Action</TableHead>

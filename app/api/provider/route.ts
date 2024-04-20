@@ -27,6 +27,9 @@ export async function POST(req: Request) {
     export async function GET() {
         try {
             const prov = await prismadb.provider.findMany({
+                where: {
+                  isActive: true
+                },
                 include: {
                     user: true,
                     service: {

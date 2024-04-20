@@ -10,14 +10,17 @@ import {useState} from "react";
 import {LoginModel} from "@/models/LoginModel";
 import {Api} from "@/app/api/Api";
 import {useRouter} from "next/navigation";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logIn} from "@/redux/features/auth-slice";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import {RootState} from "@/redux/store";
 
 const Login = () => {
     const [errorMsg, setErrorMsg] = useState("");
     const dispatch = useDispatch();
     const route = useRouter()
+    const active = useSelector((state: RootState) => state.activationReducer.value.isActive)
+
     const [isLoaging, setIsLoading] = useState(false);
 
 
@@ -34,13 +37,20 @@ const Login = () => {
             setIsLoading(true)
             const loginLodel = new LoginModel(Number(values.phone), values.passwords);
             const resp = await Api.create("/api/login", loginLodel);
-            if(resp) {
+            if(resp.ok) {
                 dispatch(logIn(resp.id));
                 if(resp.role=="customer") {
-                    route.push("/");
+
+                    route.push("/home");
                 }
                 if(resp.role == "provider") {
-                    route.push("/provider");
+                    if(active) {
+                        route.push("/provider");
+                    }
+                    else {
+                        route.push("/provider/activation");
+                    }
+
                 }
                 if(resp.role == "admin") {
                     route.push("/admin");
@@ -53,21 +63,23 @@ const Login = () => {
             setIsLoading(false)
         }
     })
+
     return(
         <div className={"flex flex-col space-y-5 md:p-20 p-10 items-center justify-center "}>
-            <h1 className={"text-center text-[35px]"}>Connectez-vous et <br/> fait Votre réservation</h1>
-            <section className={"flex flex-col space-y-10 items-center  md:w-auto"}>
+
+            <section className={"flex flex-col space-y-5 items-center  md:w-auto"}>
                 {/*image*/}
                 <div className={"w-auto"}>
                     <Image src={"/icons/logo1.svg"}
                            alt={"login image"}
                            priority={true}
-                           width={300}
-                           height={300}
+                           width={250}
+                           height={250}
                            className={"bg-cover bg-center bg-content "}
                     />
                 </div>
 
+                <h1 className={"text-center text-[35px]"}>Connectez-vous</h1>
 
                 {/*form*/}
                 <div className={"w-full flex items-center justify-center"}>
@@ -78,7 +90,7 @@ const Login = () => {
                         <div className={"flex flex-col"}>
                             <label className={formik.touched.phone && formik.errors.phone ? "text-red-600" : ""}>
                                 {
-                                    formik.touched.phone && formik.errors.phone ? formik.errors.phone: "Numéro de Téléphone"
+                                    formik.touched.phone && formik.errors.phone ? formik.errors.phone : "Numéro de Téléphone"
                                 }
                             </label>
                             <Input type={"tel"}
@@ -91,19 +103,21 @@ const Login = () => {
                         </div>
 
                         <div className={"flex flex-col"}>
-                            <label className={formik.touched.passwords && formik.errors.passwords ? "text-red-600" : ""}>
+                            <label
+                                className={formik.touched.passwords && formik.errors.passwords ? "text-red-600" : ""}>
                                 {
                                     formik.touched.passwords && formik.errors.passwords ? formik.errors.passwords : "Mot de Passe"
                                 }
                             </label>
                             <Input.Password type={"password"}
-                                   name={"passwords"}
-                                   size={"large"}
-                                   value={formik.values.passwords}
-                                   onChange={formik.handleChange}
-                                   prefix={<Lock/>}
-                                   className={""}
-                                   iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                                            name={"passwords"}
+                                            size={"large"}
+                                            value={formik.values.passwords}
+                                            onChange={formik.handleChange}
+                                            prefix={<Lock/>}
+                                            className={""}
+                                            iconRender={(visible) => (visible ? <EyeTwoTone/> :
+                                                <EyeInvisibleOutlined/>)}
                             />
                         </div>
 
@@ -120,14 +134,15 @@ const Login = () => {
                             Mot de passe oublié
                         </Link>
 
-                        <h1 className={"text-center"}>Vous n'avez pas de compte? <Link href={"/registre"} className={"text-blue-600"}>Creer un compte</Link> </h1>
-
+                        <h1 className={"text-center"}>Vous n'avez pas de compte? <Link href={"/registre"}
+                                                                                       className={"text-blue-600"}>Creer
+                            un compte</Link></h1>
 
 
                     </form>
                 </div>
             </section>
-            </div>
+        </div>
     );
 }
 export default Login;

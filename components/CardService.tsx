@@ -40,7 +40,7 @@ const CardService = ({
             <div className={"px-2 mt-[5%] md:mt-2 flax flex-col space-y-3 md:space-y-0"}>
                 <Badge variant="secondary" className={"bg-cyan-200 text-blue-600 w-auto h-[30px] "}>{categoryName}</Badge>
 
-                <h1 className={"text-[23px] font-bold"}>{serviceName}</h1>
+                <h1 className={"md:text-[18px] text-[15px] font-bold"}>{serviceName}</h1>
 
                 <h1 className={"font-bold text-[18px] text-blue-800"}>{providerName}</h1>
 

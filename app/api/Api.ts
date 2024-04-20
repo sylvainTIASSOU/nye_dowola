@@ -1,5 +1,5 @@
 import axios from "axios";
-export class Api {
+export class    Api {
     static async create(resourceUrl: string, data: any) {
         try {
             const response = await axios.post(resourceUrl, data);

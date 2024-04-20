@@ -94,12 +94,12 @@ const Profil = () => {
     };
 
     return (
-        <div className={"flex  flex-col space-y-5 md:p-20 p-10 items-center justify-center "}>
+        <div className={"flex  flex-col space-y-5 md:p-10 p-5 items-center  "}>
             <h1 className={"text-[35px] text-center"}>Profil</h1>
 
 
-            <div className={"flex flex-col"}>
-                <label>Photo de profil</label>
+            <div className={"flex space-x-3 items-center"}>
+                <label>Photo de profil <span className={"text-red-600"}>*</span> </label>
                 <div>
                     <ImageUpload
                         value={image}

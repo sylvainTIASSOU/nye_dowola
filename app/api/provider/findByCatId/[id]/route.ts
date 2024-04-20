@@ -17,6 +17,7 @@ export async function GET(req: Request, { params  }: { params: {id: string}}) {
 
         const prov = await prismadb.provider.findMany({
             where: {
+                isActive: true,
                 service: {
                     category: {
                         id: id,

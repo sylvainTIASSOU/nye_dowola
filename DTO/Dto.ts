@@ -70,6 +70,7 @@ export class Dto {
             appointmentStatus: Joi.string().required(),
             providerId: Joi.number().required(),
             userId: Joi.number().required(),
+            id: Joi.number().optional(),
         })
         return schema;
     }

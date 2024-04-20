@@ -15,6 +15,7 @@ export class AppointmentModel {
     appointmentStatus: string,
     providerId: number,
     userId: number,
+    id?: number,
     ) {
         this.appointmentDate = appointmentDate;
         this.appointmentHours = appointmentHours;
@@ -22,5 +23,6 @@ export class AppointmentModel {
         this.appointmentStatus = appointmentStatus;
         this.providerId = providerId;
         this.userId= userId;
+        this.id = id;
     }
 }

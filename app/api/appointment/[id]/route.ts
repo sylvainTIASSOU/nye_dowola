@@ -8,8 +8,9 @@ export async function PUT(req: Request, { params  }: { params: {id: string}}) {
     try {
         const id = Number(params.id);
         const appointmentModel: AppointmentModel = await req.json();
-        const appointmentValidate = Dto.categoryDto().validate(appointmentModel);
-        const appoint = await prismadb.appointement.update({
+        const appointmentValidate = Dto.appointmentDto().validate(appointmentModel);
+
+        const appoint = await prismadb.appointment.update({
             where: {id: id },
             data: appointmentValidate.value
         });
@@ -18,7 +19,7 @@ export async function PUT(req: Request, { params  }: { params: {id: string}}) {
             ok: true,
         });
     }catch (error) {
-        console.error("[CATEGORY_PUT]", error);
+        console.error("[APPINTMENT_PUT]", error);
         return NextResponse.json({
             error: 'Internal error status: 500 ',
             ok: false,

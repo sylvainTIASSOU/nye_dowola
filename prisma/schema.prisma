@@ -2,7 +2,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// POSTGRES_URL
+// POSTGRES_URL DB_NYEDOWOLA DBURL
 datasource db {
   provider = "postgresql"
   url      = env("DB_NYEDOWOLA")
