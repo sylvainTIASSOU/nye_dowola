@@ -44,12 +44,8 @@ const Login = () => {
                     route.push("/home");
                 }
                 if(resp.role == "provider") {
-                    if(active) {
+                    
                         route.push("/provider");
-                    }
-                    else {
-                        route.push("/provider/activation");
-                    }
 
                 }
                 if(resp.role == "admin") {
