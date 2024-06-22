@@ -31,7 +31,7 @@ export default function Reservations() {
 
     useEffect(() => {
         
-        Api.create(`/api/appointment/findByProviderId/17`, {status: "planifier"}).then((values: any[]) => {
+        Api.create(`/api/appointment/findByProviderId/6`, {status: "planifier"}).then((values: any[]) => {
             const newData: DataType[] = []
 
             values.forEach((ele: any) => {
