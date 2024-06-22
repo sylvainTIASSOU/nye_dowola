@@ -20,7 +20,7 @@ const siteMap = [
 const help = [
     "Etat du reseau",
     "FAQ",
-    "Nous contacté"
+    "Nous contacter"
 ];
 
 const reseau = [

@@ -59,7 +59,7 @@ const RattingModal = (
                     onClick={showModal}>
                 <MessageCircleHeart />
             </Button>
-            <Modal title="Commentaire sur le service fournni" open={isModalOpen} onCancel={handleCancel}>
+            <Modal title="Commentaire sur le service fourni" open={isModalOpen} onCancel={handleCancel}>
                 <form onSubmit={formik.handleSubmit} className={"flex flex-col space-y-5"}>
                     <Input type={"text"} name={"content"}
                            value={formik.values.content}

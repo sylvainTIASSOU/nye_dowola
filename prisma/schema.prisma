@@ -2,13 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// POSTGRES_URL DB_NYEDOWOLA DBURL
 datasource db {
   provider = "postgresql"
   url      = env("DB_NYEDOWOLA")
 }
 
-// TODO rating
 model User {
   id          Int           @id @default(autoincrement())
   lastName    String
@@ -23,10 +21,10 @@ model User {
   isActive    Boolean?
   createAt    DateTime      @default(now())
   updateAt    DateTime      @updatedAt
-  provider    Provider[]
-  payment     Payment[]
-  ratting     Ratting[]
   appointment Appointment[]
+  payment     Payment[]
+  provider    Provider[]
+  ratting     Ratting[]
 }
 
 model Service {
@@ -34,13 +32,13 @@ model Service {
   serviceName String
   description String
   imageUrl    String[]
-  category    Category   @relation(fields: [categoryId], references: [id])
   isVisible   Boolean?
   isActive    Boolean?
   createAt    DateTime   @default(now())
   updateAt    DateTime   @updatedAt
   categoryId  Int
   provider    Provider[]
+  category    Category   @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
@@ -59,8 +57,6 @@ model Provider {
   availability      String
   estimatedDuration Int
   tarif             Float
-  user              User          @relation(fields: [userId], references: [id])
-  service           Service       @relation(fields: [serviceId], references: [id])
   isVisible         Boolean?
   isActive          Boolean?
   createAt          DateTime      @default(now())
@@ -68,19 +64,21 @@ model Provider {
   userId            Int
   serviceId         Int
   appointment       Appointment[]
+  service           Service       @relation(fields: [serviceId], references: [id])
+  user              User          @relation(fields: [userId], references: [id])
 }
 
 model Payment {
   id            Int           @id @default(autoincrement())
   amount        Float
   paymentDate   String
-  customer      User          @relation(fields: [customerId], references: [id])
-  appointment   Appointment   @relation(fields: [appId], references: [id])
   paymentStatus PaymentStatus
   createAt      DateTime      @default(now())
   updateAt      DateTime      @updatedAt
   customerId    Int
   appId         Int
+  appointment   Appointment   @relation(fields: [appId], references: [id])
+  customer      User          @relation(fields: [customerId], references: [id])
 }
 
 model Appointment {
@@ -89,12 +87,12 @@ model Appointment {
   appointmentHours  String
   address           String
   appointmentStatus AppointmentStatus
-  provider          Provider          @relation(fields: [providerId], references: [id])
-  user              User              @relation(fields: [userId], references: [id])
   createAt          DateTime          @default(now())
   updateAt          DateTime          @updatedAt
   providerId        Int
   userId            Int
+  provider          Provider          @relation(fields: [providerId], references: [id])
+  user              User              @relation(fields: [userId], references: [id])
   payment           Payment[]
   ratting           Ratting[]
 }
@@ -103,14 +101,14 @@ model Ratting {
   id          Int         @id @default(autoincrement())
   comment     String
   note        Int
-  user        User        @relation(fields: [userId], references: [id])
-  appointment Appointment @relation(fields: [appId], references: [id])
   isVisible   Boolean?
   isActive    Boolean?
   createAt    DateTime    @default(now())
   updateAt    DateTime    @updatedAt
   userId      Int
   appId       Int
+  appointment Appointment @relation(fields: [appId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
 }
 
 enum PaymentStatus {

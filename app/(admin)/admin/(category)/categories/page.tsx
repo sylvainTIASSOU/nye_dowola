@@ -54,6 +54,8 @@ const Categories = () => {
     };
 
     const tableConstruction  = (data: CategoryModel[]) => {
+        
+
         return data.map((arts) => (
             <TableRow key={arts.id}>
                 <TableCell>
@@ -92,7 +94,10 @@ const Categories = () => {
                                             const confirmation: boolean = confirm("Voulez-vous suprimer cette article?")
 
                                             if(confirmation) {
-                                                //remove(String(arts.id))
+                                                Api.delete(`/api/category/${arts.id}`)
+                                                setCategories(categories.filter((item) => item.id !== arts.id))
+                                                
+                                                
                                             }
                                         }}
 

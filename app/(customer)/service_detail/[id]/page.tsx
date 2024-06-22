@@ -175,7 +175,7 @@ export default function ServiceDetail({params}: {params: {id: string}}) {
                     }
 
 
-                    <h1 className={"text-[25px] font-bold mt-5"}>Galegie</h1>
+                    <h1 className={"text-[25px] font-bold mt-5"}>Galerie</h1>
                     <div className={"grid grid-cols-2 md:grid-cols-3 gap-2"}>
                         {
                             isLoadingserv

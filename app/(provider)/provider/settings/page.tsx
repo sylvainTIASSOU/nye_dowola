@@ -54,7 +54,7 @@ export default function Setting() {
 
         onSubmit: async (values) => {
             setIsLoading(true)
-            const providerModel = new ProviderModel(values.availability, Number(values.estimatedDuration), Number(values.tarif), Number(uid), Number(values.serviceId), false, true);
+            const providerModel = new ProviderModel(values.availability, Number(values.estimatedDuration), Number(values.tarif), Number(uid), Number(values.serviceId), true, true);
             const resp = await Api.create("/api/provider", providerModel);
 
             if (resp.ok) {

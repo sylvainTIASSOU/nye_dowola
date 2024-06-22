@@ -165,7 +165,7 @@ export function Book({providerId, amount}: {providerId: string, amount: number})
                     <div className="">
                         <label htmlFor="name" className={formik.touched.appointmentHours && formik.errors.appointmentHours ? "text-red-600 text-right" : "text-right"}>
                             {
-                                formik.touched.appointmentHours && formik.errors.appointmentHours ? formik.errors.appointmentHours :" Selectionner la date du rendez-vous"
+                                formik.touched.appointmentHours && formik.errors.appointmentHours ? formik.errors.appointmentHours :" Selectionner l'heure du rendez-vous"
                             }
 
                         </label>
@@ -190,8 +190,10 @@ export function Book({providerId, amount}: {providerId: string, amount: number})
                                onChange={formik.handleChange}
                                className="col-span-3" />
                     </div>
-
-                    <Button type="submit" variant={"default"} className={""}>Enrégistrer</Button>
+                    <SheetClose asChild>
+                        <Button type="submit" variant={"default"} className={""}>Enrégistrer</Button>
+                    </SheetClose>
+                    
                 </form>
                 <SheetFooter>
                     <SheetClose asChild>
