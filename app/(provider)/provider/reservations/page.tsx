@@ -30,7 +30,8 @@ export default function Reservations() {
     const {toast} = useToast();
 
     useEffect(() => {
-        Api.create(`/api/appointment/findByProviderId/${uid}`, {status: "planifier"}).then((values: any[]) => {
+        
+        Api.create(`/api/appointment/findByProviderId/17`, {status: "planifier"}).then((values: any[]) => {
             const newData: DataType[] = []
 
             values.forEach((ele: any) => {
